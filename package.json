@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/prodatakey/dirty-chai"
+    "url": "https://github.com/joshperry/dirty-chai"
   },
   "keywords": [
     "chai",
@@ -19,9 +19,9 @@
   "author": "Joshua Perry <josh@pdk.io>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/prodatakey/dirty-chai/issues"
+    "url": "https://github.com/joshperry/dirty-chai/issues"
   },
-  "homepage": "https://github.com/prodatakey/dirty-chai",
+  "homepage": "https://github.com/joshperry/dirty-chai",
   "devDependencies": {
     "chai": "^4.0.0",
     "chai-as-promised": "^7.0.0",
