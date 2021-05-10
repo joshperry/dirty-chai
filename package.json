@@ -16,7 +16,7 @@
     "browser",
     "testing"
   ],
-  "author": "Joshua Perry <josh@pdk.io>",
+  "author": "Joshua Perry <josh@6bit.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/joshperry/dirty-chai/issues"
