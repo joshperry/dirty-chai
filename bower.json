@@ -4,7 +4,7 @@
   "main": "./lib/dirty-chai.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/prodatakey/dirty-chai"
+    "url": "https://github.com/joshperry/dirty-chai"
   },
   "ignore": [
     "Gruntfile.js",
@@ -16,6 +16,6 @@
     "testing"
   ],
   "dependencies": {
-    "chai": "<1.10.0 || >1.10.0 <4"
+    "chai": ">= 6.2.0 < 7"
   }
 }
