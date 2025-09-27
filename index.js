@@ -1,20 +1,4 @@
-'use strict';
-
-(function (dirtyChai) {
-    // Inject into various module systems
-    if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
-      // Node
-      module.exports = dirtyChai;
-    } else if (typeof define === 'function' && define.amd) {
-      // AMD
-      define(function () {
-          return dirtyChai;
-      });
-    } else {
-      // Other environment (usually <script> tag): plug in to global chai instance directly.
-      chai.use(dirtyChai);
-    }
-}(function dirtyChai(chai, util) {
+export default function dirtyChai(chai, util) {
   var DEFERRED = '__deferred__';
 
   var flag = util.flag,
@@ -166,37 +150,24 @@
 
 
   // Hook new property creations
-  var addProperty = util.addProperty;
-  util.addProperty = function(ctx, name, getter) {
-    addProperty.apply(util, arguments);
-
-    // Convert to chained property
-    convertAssertionPropertyToChainMethod(name, getter);
-  };
+  chai.util.events.addEventListener("addProperty", function({ name, fn }) {
+    convertAssertionPropertyToChainMethod(name, fn);
+  })
 
   // Hook new method assertions
-  var addMethod = util.addMethod;
-  util.addMethod = function(ctx, name) {
-    addMethod.apply(util, arguments);
+  chai.util.events.addEventListener("addMethod", function({ name }) {
     Assertion.overwriteMethod(name, function(_super) {
       return function() {
         var result = execDeferred(this);
         return _super.apply(result, arguments);
       };
     });
-  };
+  })
 
   // Hook new chainable methods
-  var addChainableMethod = util.addChainableMethod;
-  util.addChainableMethod = function(ctx, name) {
+  chai.util.events.addEventListener("addChainableMethod", function({ name }) {
     // When overwriting an existing property, don't patch it
-    var patch = true;
-    if(Assertion.prototype.hasOwnProperty(name)) {
-      patch = false;
-    }
-    
-    addChainableMethod.apply(util, arguments);
-    if(patch) {
+    if(!Assertion.prototype.hasOwnProperty(name)) {
       Assertion.overwriteChainableMethod(name, function(_super) {
         return function() {
           // Method call of the chainable method
@@ -211,6 +182,5 @@
         };
       });
     }
-  };
-
-}));
+  })
+}

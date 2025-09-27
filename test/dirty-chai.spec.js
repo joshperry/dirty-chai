@@ -1,12 +1,11 @@
-'use strict';
+import { Assertion, expect, should, use } from 'chai';
+import promised from 'chai-as-promised';
+import dirty from 'dirty-chai';
 
-var requireUncached = require('require-uncached');
-var chai = requireUncached('chai');
-var expect = chai.expect;
-chai.should();
+should();
 
-chai.use(require('chai-as-promised'));
-chai.use(requireUncached('../lib/dirty-chai'));
+use(promised);
+use(dirty);
 
 function shouldFail(func, msg) {
   it('should fail with a message', function() {
@@ -119,17 +118,17 @@ describe('dirty chai', function() {
     beforeEach(function() {
       stubCalled = false;
 
-      chai.use(function(chai, util) {
+      use(function(chai, util) {
         chai.Assertion.addProperty('neverFail', function() { this.assert(true === true); stubCalled = true; });
         chai.Assertion.addProperty('flagelate', function() { util.flag(this, 'legfree', true); });
       });
     });
 
     it('should convert property to a chainable method', function() {
-      var prop = Object.getOwnPropertyDescriptor(chai.Assertion.prototype, 'neverFail');
-      (new chai.Assertion({})).should.have.a.property('neverFail').and.be.a('function');
+      var prop = Object.getOwnPropertyDescriptor(Assertion.prototype, 'neverFail');
+      (new Assertion({})).should.have.a.property('neverFail').and.be.a('function');
       prop.should.have.property('get').and.be.a('function');
-      ((new chai.Assertion({}).neverFail)).should.be.a('function');
+      ((new Assertion({}).neverFail)).should.be.a('function');
     });
 
     it('should call assertion', function() {
