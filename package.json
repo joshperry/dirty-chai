@@ -1,6 +1,6 @@
 {
   "name": "dirty-chai",
-  "version": "3.0.0-rc.1",
+  "version": "3.0.0",
   "description": "Extends Chai with lint-friendly terminating assertions.",
   "type": "module",
   "exports": {
